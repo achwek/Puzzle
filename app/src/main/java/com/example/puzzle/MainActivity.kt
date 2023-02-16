@@ -21,9 +21,9 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
     var mCurrentPhotoPath: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,13 +44,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onImageFromCameraClick(view: View?) {
+
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (intent.resolveActivity(packageManager) != null) {
             var photoFile: File? = null
+
             try {
                 photoFile = createImageFile()
             } catch (e: IOException) {
-                Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG)
+
+                e.printStackTrace()
+                Toast.makeText(this@MainActivity, e.localizedMessage, Toast.LENGTH_LONG).show()
+
             }
             if (photoFile != null) {
                 val photoUri = FileProvider.getUriForFile(
@@ -61,37 +66,41 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
                 startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
             }
+
         }
     }
 
     @Throws(IOException::class)
     private fun createImageFile(): File? {
+
         if (ContextCompat.checkSelfPermission(
-                this@MainActivity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                this@MainActivity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // permission not granted, initiate request
+
+            // permission not granted initiate request
             ActivityCompat.requestPermissions(
-                this@MainActivity,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                this@MainActivity, arrayOf(
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
                 REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE
             )
         } else {
-            // Create an image file name
-            val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-            val imageFileName = "JPEG_" + timeStamp + "_"
-            val storageDir =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-            val image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",  /* suffix */
-                storageDir /* directory */
+            // create an image file name
+            val timestamp = SimpleDateFormat("yyyyMMdd_HHmmsss").format(Date())
+            val imageFileName = "JPEG_" + timestamp + "_"
+            val storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES
             )
-            mCurrentPhotoPath = image.absolutePath // save this to use in the intent
+
+            val image = File.createTempFile(
+                imageFileName, ".jpg", storageDir
+            )
+            mCurrentPhotoPath = image.absolutePath //save this to use in the intent
             return image
         }
         return null
+
     }
 
     override fun onRequestPermissionsResult(

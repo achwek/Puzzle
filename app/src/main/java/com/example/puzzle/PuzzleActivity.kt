@@ -27,6 +27,7 @@ class PuzzleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_puzzle)
         val layout = findViewById<RelativeLayout>(R.id.layout)
         val imageView: ImageView = findViewById(R.id.imageView)
+
         val intent = intent
         val assetName = intent.getStringExtra("assetName")
         mCurrentPhotoPath = intent.getStringExtra("mCurrentPhotoPath")
