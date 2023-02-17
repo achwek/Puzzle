@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/table_background"
+    android:background="@drawable/mur"
     tools:context=".MainActivity">
 
     <GridView
@@ -32,7 +32,7 @@
         android:clickable="true"
         android:onClick="onImageFromCameraClick"
         android:src="@drawable/ic_camera"
-        app:backgroundTint="#D89C27B0"
+        app:backgroundTint="#E200BCD4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white"
@@ -47,7 +47,7 @@
         android:clickable="true"
         android:onClick="onImageFromGalleryClick"
         android:src="@drawable/ic_galler"
-        app:backgroundTint="#FF5722"
+        app:backgroundTint="#DCE91E63"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cameraButton"
         app:tint="@color/white"

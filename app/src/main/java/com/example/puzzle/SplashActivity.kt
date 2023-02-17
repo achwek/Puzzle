@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
             }
 
 
-        },1500L)
+        },2000L)
 
     }
 

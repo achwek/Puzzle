@@ -1,14 +1,17 @@
 package com.example.puzzle
 
+import android.content.Intent
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import java.io.IOException
 import java.io.InputStream
@@ -305,7 +308,20 @@ class PuzzleActivity : AppCompatActivity() {
 
     fun checkGameOver() {
         if (isGameOver()) {
-            finish()
+            AlertDialog.Builder(this@PuzzleActivity)
+                .setTitle("Bravo !!!!")
+                .setIcon(R.drawable.ic_celebration)
+                .setMessage("Vous avez Gagné .. !!!\n Voulez-vous rejouer?")
+                .setPositiveButton("Oui") { dialog, _ ->
+                    finish()
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Non") { dialog, _ ->
+
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
         }
     }
 
@@ -365,5 +381,13 @@ class PuzzleActivity : AppCompatActivity() {
             source, 0, 0, source.width, source.height,
             matrix, true
         )
+    }
+
+    fun onImageFromHelpClick(view: View) {
+
+        val intent = Intent(this@PuzzleActivity, HelpActivity::class.java)
+        startActivity(intent)
+
+
     }
 }
